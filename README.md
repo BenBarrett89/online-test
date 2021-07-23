@@ -121,6 +121,7 @@ The technologies I intend to use will be:
 - [Mocha](https://mochajs.org/) - test framework
 - [Chai](https://www.chaijs.com/) - assertion library
 - [Sinon](https://sinonjs.org/) - spying/stubbing/mocking framework
+- [NYC](https://github.com/istanbuljs/nyc) - unit test coverage
 - [Standard](https://standardjs.com/) - linter
 - [Docker](https://www.docker.com/) - containerisation
 - [Postman](https://www.postman.com/) / [Newman](https://github.com/postmanlabs/newman) - API testing
