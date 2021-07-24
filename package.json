@@ -4,6 +4,7 @@
   "description": "Code for an online test",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test:lint": "standard",
     "test:unit": "nyc mocha --require test/unit/config/mocha.requires.js --recursive test/unit"
   },
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bunyan": "^1.8.15",
     "express": "^4.17.1"
   },
   "nyc": {

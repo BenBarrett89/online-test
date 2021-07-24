@@ -1,7 +1,7 @@
 const constants = require('../../../src/constants')
 const initGetDistance = require('../../../src/helpers/getDistance')
 
-const getDistance = initGetDistance({ constants })
+const getDistance = initGetDistance({ constants: constants.calculation })
 
 describe('helpers/getDistance', () => {
   it('should calculate the distance in miles between two given coordinates (large distance)', () => {
