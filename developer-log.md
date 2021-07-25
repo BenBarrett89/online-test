@@ -13,3 +13,14 @@
 - Added node dependencies
 - Created basic OpenAPI specification
 - Set up unit test requires (config) with some placeholder files to confirm
+
+## 2021-07-24
+
+- Added core logic
+- Added Express application
+- Added routes
+- Scraped cities using tool script for further analysis of existing API
+- Missing: unit tests for `init` - will wait until more complete
+- Missing: documentation on running the API, unit tests etc
+- TODO: add validation to `/users` route, add Docker, add Postman functional testing
+- Stretch goal: serve the OpenAPI spec

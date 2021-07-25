@@ -118,6 +118,7 @@ The technologies I intend to use will be:
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime environment
 - [Express](http://expressjs.com/) - web framework
 - [Axios](https://github.com/axios/axios) - HTTP client
+- [Bunyan](https://github.com/trentm/node-bunyan) - logging library
 - [Mocha](https://mochajs.org/) - test framework
 - [Chai](https://www.chaijs.com/) - assertion library
 - [Sinon](https://sinonjs.org/) - spying/stubbing/mocking framework
