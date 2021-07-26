@@ -1,4 +1,14 @@
-module.exports = ({ router, configuration, handlers, validation }) => {
+module.exports = ({
+  router,
+  configuration,
+  handlers,
+  swaggerDocument,
+  swaggerUi,
+  validation
+}) => {
+  router.use(configuration.apiDocs.route, swaggerUi.serve)
+  router.get(configuration.apiDocs.route, swaggerUi.setup(swaggerDocument))
+
   router.route(configuration.cities.route).get(handlers.cities)
 
   router.route(configuration.users.route)

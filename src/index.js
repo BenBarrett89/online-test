@@ -1,6 +1,7 @@
 const axios = require('axios')
 const bunyan = require('bunyan')
 const express = require('express')
+const swaggerUi = require('swagger-ui-express')
 
 const app = express()
 
@@ -33,6 +34,8 @@ const router = express.Router()
 
 const routing = require('./routing')
 
+const swaggerDocument = require('../specification.json')
+
 const validation = {
   common: {
     initSendValidationErrorResponse: require('./validation/common/sendValidationErrorResponse'),
@@ -56,6 +59,8 @@ const startServer = init({
   helpers,
   routing,
   router,
+  swaggerDocument,
+  swaggerUi,
   validation
 })
 

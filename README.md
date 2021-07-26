@@ -113,12 +113,13 @@ These decisions (particularly the stretch goal) impact the design and force an a
 
 ### Technology selection
 
-The technologies I intend to use will be:
+The technologies uses are:
 
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime environment
 - [Express](http://expressjs.com/) - web framework
 - [Axios](https://github.com/axios/axios) - HTTP client
 - [Bunyan](https://github.com/trentm/node-bunyan) - logging library
+- [Swagger UI Express](https://github.com/scottie1984/swagger-ui-express) - API specification serving
 - [Mocha](https://mochajs.org/) - test framework
 - [Chai](https://www.chaijs.com/) - assertion library
 - [Sinon](https://sinonjs.org/) - spying/stubbing/mocking framework
@@ -163,7 +164,9 @@ npm run start
 
 #### Call the API (Node.js)
 
-The API can now be called on [localhost:3000](localhost:3000)
+The API can now be called on [localhost:3000](http://localhost:3000)
+
+The specification is available through the browser at [localhost:3000/api-docs/](http://localhost:3000/api-docs/)
 
 ### Running the API in Docker
 
@@ -193,7 +196,9 @@ npm run docker:start
 
 #### Call the API (Docker)
 
-The API can now be called on [localhost:3000](localhost:3000)
+The API can now be called on [localhost:3000](http://localhost:3000)
+
+The specification is available through the browser at [localhost:3000/api-docs/](http://localhost:3000/api-docs/)
 
 ## Testing
 

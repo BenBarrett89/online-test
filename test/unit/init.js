@@ -12,6 +12,9 @@ describe('./init', () => {
     const axiosMock = { mock: 'axios' }
     const bunyanMock = { mock: 'bunyan' }
 
+    const swaggerDocument = { openApi: '3.0.3' }
+    const swaggerUi = { mock: 'swagger-ui-express' }
+
     const sortByIdSpy = sinon.spy()
 
     const dataCitiesMock = { mock: 'data/cities' }
@@ -207,6 +210,8 @@ describe('./init', () => {
       router: routerMock,
       configuration: constants.routing,
       handlers: initialisedHandlers,
+      swaggerDocument,
+      swaggerUi,
       validation: initialisedValidation
     }
 
@@ -221,6 +226,8 @@ describe('./init', () => {
       helpers: helpersMock,
       routing: routingSpy,
       router: routerMock,
+      swaggerDocument,
+      swaggerUi,
       validation: validationMock
     })
 
