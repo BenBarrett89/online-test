@@ -237,3 +237,11 @@ The Postman collection can also be imported into Postman for the suit to be ran 
 ## Developer log
 
 See [Developer log](./developer-log.md.md)
+
+## Miscellaneous
+
+### Tools
+
+The [`tools`](./tools) section contains a rough scraping script I used to find all of the cities.
+
+The JSON file it produced has also been committed. Interestingly there are nearly as many cities as there are users!
