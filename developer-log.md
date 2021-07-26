@@ -24,3 +24,9 @@
 - Missing: documentation on running the API, unit tests etc
 - TODO: add validation to `/users` route, add Docker, add Postman functional testing
 - Stretch goal: serve the OpenAPI spec
+
+## 2021-07-25
+
+- Added validation to `/users` route (other route doesn't need validation)
+- TODO: Add Docker, add Postman functional testing, improve documentation
+- Stretch goal: serve the OpenAPI spec

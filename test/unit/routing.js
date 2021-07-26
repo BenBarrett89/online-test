@@ -7,24 +7,62 @@ describe('./routing', () => {
     const getSpy = sinon.spy()
     const routeStub = sinon.stub()
 
-    const appMock = {
+    const routerMock = {
       all: allSpy,
       get: getSpy,
       route: routeStub
     }
 
-    routeStub.returns(appMock)
+    routeStub.returns(routerMock)
 
-    const helloWorldHandler = sinon.spy()
+    const citiesHandler = sinon.spy()
     const notFoundHandler = sinon.spy()
+    const usersHandler = sinon.spy()
+
     const handlers = {
-      helloWorld: helloWorldHandler,
-      notFound: notFoundHandler
+      cities: citiesHandler,
+      notFound: notFoundHandler,
+      users: usersHandler
     }
 
-    routing({ app: appMock, configuration: constants.routing, handlers })
+    const sendValidationErrorResponse = sinon.spy()
+    const validateCity = sinon.spy()
+    const validateLatitudeWithinBounds = sinon.spy()
+    const validateLongitudeWithinBounds = sinon.spy()
+    const validateQueryCombination = sinon.spy()
+    const validateRadiusWithinBounds = sinon.spy()
+    const validateRequestParameters = sinon.spy()
 
-    // assert.isTrue(getSpy.calledWith(helloWorldHandler), 'Hello world handler unused')
-    // assert.isTrue(allSpy.calledWith(notFoundHandler), 'Not found handler unused')
+    const validation = {
+      common: {
+        sendValidationErrorResponse
+      },
+      users: {
+        validateCity,
+        validateLatitudeWithinBounds,
+        validateLongitudeWithinBounds,
+        validateQueryCombination,
+        validateRadiusWithinBounds,
+        validateRequestParameters
+      }
+    }
+
+    routing({ router: routerMock, configuration: constants.routing, handlers, validation })
+
+    assert.isTrue(routeStub.calledWith(constants.routing.cities.route))
+    assert.isTrue(routeStub.calledWith(constants.routing.users.route))
+    assert.isTrue(routeStub.calledWith(constants.routing.unknown.route))
+    assert.isTrue(getSpy.calledWith(citiesHandler))
+    assert.isTrue(getSpy.calledWith(
+      validateRequestParameters,
+      validateQueryCombination,
+      validateLatitudeWithinBounds,
+      validateLongitudeWithinBounds,
+      validateRadiusWithinBounds,
+      validateCity,
+      sendValidationErrorResponse,
+      usersHandler
+    ))
+    assert.isTrue(allSpy.calledWith(notFoundHandler))
   })
 })

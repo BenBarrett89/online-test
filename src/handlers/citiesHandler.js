@@ -1,5 +1,3 @@
-const constants = require('../constants')
-
 module.exports = ({ cities, constants }) => {
   const citiesArray = Object.keys(cities).map(cityName =>
     Object.assign({ name: cityName }, cities[cityName])

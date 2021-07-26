@@ -2,6 +2,8 @@ const axios = require('axios')
 const bunyan = require('bunyan')
 const express = require('express')
 
+const app = express()
+
 const constants = require('./constants')
 const init = require('./init')
 
@@ -27,18 +29,34 @@ const helpers = {
   sortById: require('./helpers/sortById')
 }
 
+const router = express.Router()
+
 const routing = require('./routing')
 
+const validation = {
+  common: {
+    initSendValidationErrorResponse: require('./validation/common/sendValidationErrorResponse'),
+    initValidateQueryWithinBounds: require('./validation/common/validateQueryWithinBounds'),
+    initValidateRequestParameters: require('./validation/common/validateRequestParameters')
+  },
+  users: {
+    initValidateCity: require('./validation/users/validateCity'),
+    initValidateQueryCombination: require('./validation/users/validateQueryCombination')
+  }
+}
+
 const startServer = init({
+  app,
   axios,
   bunyan,
   constants,
   data,
   exit,
-  express,
   handlers,
   helpers,
-  routing
+  routing,
+  router,
+  validation
 })
 
 startServer()

@@ -5,7 +5,7 @@ module.exports = ({
   getUsersFromCity,
   logger,
   sortById
-}) => async (req, res) => {
+}) => async (req, res, next) => {
   try {
     const city = req.query.city ? cities[req.query.city] : undefined
     const latitude = city ? city.latitude : req.query.latitude

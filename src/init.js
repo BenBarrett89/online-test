@@ -1,16 +1,16 @@
 module.exports = ({
+  app,
   axios,
   bunyan,
   constants,
   data,
   exit,
-  express,
   handlers,
   helpers,
-  routing
+  router,
+  routing,
+  validation
 }) => {
-  const app = express()
-
   const logger = helpers.initLogger({
     bunyan,
     environment: constants.log.environment,
@@ -30,7 +30,7 @@ module.exports = ({
     port: constants.server.port,
     host: constants.server.host,
     log: logger,
-    startMessage: constants.log.messages.startMessage
+    startMessage: constants.log.messages.serverStart
   })
 
   const initialisedHandlers = {
@@ -46,11 +46,43 @@ module.exports = ({
     })
   }
 
+  const initialisedValidation = {
+    common: {
+      sendValidationErrorResponse: validation.common.initSendValidationErrorResponse({ constants })
+    },
+    users: {
+      validateCity: validation.users.initValidateCity({ cities: data.cities, constants }),
+      validateLatitudeWithinBounds: validation.common.initValidateQueryWithinBounds({
+        constants,
+        query: 'latitude',
+        route: constants.routing.users.name
+      }),
+      validateLongitudeWithinBounds: validation.common.initValidateQueryWithinBounds({
+        constants,
+        query: 'longitude',
+        route: constants.routing.users.name
+      }),
+      validateQueryCombination: validation.users.initValidateQueryCombination({ constants }),
+      validateRadiusWithinBounds: validation.common.initValidateQueryWithinBounds({
+        constants,
+        query: 'radius',
+        route: constants.routing.users.name
+      }),
+      validateRequestParameters: validation.common.initValidateRequestParameters({
+        constants,
+        routeName: constants.routing.users.name
+      })
+    }
+  }
+
   routing({
-    app,
+    router,
     configuration: constants.routing,
-    handlers: initialisedHandlers
+    handlers: initialisedHandlers,
+    validation: initialisedValidation
   })
+
+  app.use(router)
 
   return startServer
 }

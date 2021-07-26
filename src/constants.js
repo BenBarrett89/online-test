@@ -7,13 +7,29 @@ module.exports = {
     milesInKilometer: 0.621371
   },
   errors: {
+    cityNotRecognised: {
+      title: 'City not recognised',
+      description: 'The provided city was not recognised, please use the /cities route to discover recognised cities or provide latitude and longitude'
+    },
     internalServerError: {
       title: 'Internal server error',
       description: 'Something went wrong whilst handling the request'
     },
+    invalidQueryCombination: {
+      title: 'Invalid query combination',
+      description: 'Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory).'
+    },
+    missingMandatoryQuery: {
+      title: 'Missing mandatory query string parameters',
+      description: 'The following parameters are mandatory on this route but are missing: '
+    },
     notFound: {
       title: 'Route not found',
       description: 'The route you have called was not found'
+    },
+    queryParameterOutOfBounds: {
+      title: 'Query parameter out of bounds',
+      description: 'A query string parameter was not within the expected bounds'
     }
   },
   log: {
@@ -32,12 +48,14 @@ module.exports = {
   },
   routing: {
     cities: {
+      name: 'cities',
       route: '/cities'
     },
     unknown: {
       route: '*'
     },
     users: {
+      name: 'users',
       route: '/users'
     }
   },
@@ -59,6 +77,25 @@ module.exports = {
     routes: {
       cities: `/city/${cityKey}/users`,
       users: '/users'
+    }
+  },
+  validation: {
+    users: {
+      bounds: {
+        latitude: {
+          upper: 90,
+          lower: -90
+        },
+        longitude: {
+          upper: 180,
+          lower: -180
+        },
+        radius: {
+          upper: 24901 / 2, // half the circumference of the Earth
+          lower: 0
+        }
+      },
+      mandatoryQuery: ['radius']
     }
   }
 }

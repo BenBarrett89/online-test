@@ -34,8 +34,6 @@ paths:
           $ref: '#/components/responses/UsersResponse'
         '400':
           $ref: '#/components/responses/ValidationErrors'
-        '404':
-          $ref: '#/components/responses/CityNotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
@@ -105,6 +103,11 @@ components:
           type: number
           description: The longitude for the city
           example: -0.127758
+    Errors:
+      type: array
+      description: An array of errors
+      items:
+        $ref: '#/components/schemas/Error'
     Error:
       type: object
       description: An error
@@ -169,16 +172,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/City'
-    CityNotFound:
-      description: A error stating that the provided city cannot be found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            CityNotFound:
-              summary: The provided city cannot be found
-              value: {"title": "City not found", "description" : "The provided city cannot be found; please provide a city from the list provided in /cities"}
     InternalServerError:
       description: A notice that there has been an internal server error
       content:
@@ -198,26 +191,27 @@ components:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Error'
+            type: object
+            properties:
+              errors:
+                $ref: '#/components/schemas/Errors'
           examples:
-            NoLongitude:
-              summary: Latitude provided without longitude
-              value: [{"title": "Validation error", "description" : "Latitude provided without longitude; please provide longitude"}]
-            NoLatitude:
-              summary: Longitude provided without latitude
-              value: [{"title": "Validation error", "description" : "Longitude provided without latitude; please provide latitude"}]
+            CityNotRecognised:
+              summary: City not recognised
+              value: {errors:[{"title": "City not recognised", "description" : "The provided city was not recognised, please use the /cities route to discover recognised cities or provide latitude and longitude"}]}
+            InvalidQueryCombination:
+              summary: Invalid query combination
+              value: {errors:[{"title": "Invalid query combination", "description" : "Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory)."}]}
             LatitudeOutOfBounds:
               summary: Latitude out of bounds
-              value: [{"title": "Validation error", "description" : "Latitude out of bounds; please provide a latitude between -90 and 90"}]
+              value: {errors:[{"title": "Query parameter out of bounds", "description" : "Query parameter 'latitude' with value of 5177 was not within the expected bounds (between -90 and 90)"}]}
             LongitudeOutOfBounds:
               summary: Longitude out of bounds
-              value: [{"title": "Validation error", "description" : "Longitude out of bounds; please provide a longitude between -180 and 180"}]
-            CityAndCoordinatesProvided:
-              summary: City and coordinates both provided
-              value: [{"title": "Validation error", "description" : "City and coordinates (latitude and longitude) cannot both be provided; please select one method either city or coordinates to use"}]
+              value: {errors:[{"title": "Query parameter out of bounds", "description" : "Query parameter 'longitude' with value of -999 was not within the expected bounds (between -180 and 180)"}]}
+            MissingMandatoryParameters:
+              summary: Missing mandatory parameters (radius)
+              value: {errors:[{"title": "Missing mandatory query string parameters", "description" : "The following parameters are mandatory on this route but are missing: radius"}]}
             RadiusOutOfBounds:
               summary: Radius out of bounds
-              value: [{"title": "Validation error", "description" : "Radius out of bounds please provide a radius between 0 and 24901 (circumference of Earth in miles)"}]
+              value: {errors:[{"title": "Query parameter out of bounds", "description" : "Query parameter 'radius' with value of 13000 was not within the expected bounds (between 0 and 12450.5)"}]}
 
