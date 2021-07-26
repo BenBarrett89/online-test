@@ -9,6 +9,8 @@ module.exports = ({
   helpers,
   router,
   routing,
+  swaggerDocument,
+  swaggerUi,
   validation
 }) => {
   const logger = helpers.initLogger({
@@ -79,6 +81,8 @@ module.exports = ({
     router,
     configuration: constants.routing,
     handlers: initialisedHandlers,
+    swaggerDocument,
+    swaggerUi,
     validation: initialisedValidation
   })
 

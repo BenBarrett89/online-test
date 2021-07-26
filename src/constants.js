@@ -47,6 +47,10 @@ module.exports = {
     name: 'online-test'
   },
   routing: {
+    apiDocs: {
+      name: 'api-docs',
+      route: '/api-docs'
+    },
     cities: {
       name: 'cities',
       route: '/cities'
