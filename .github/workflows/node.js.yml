@@ -23,6 +23,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+    needs: dependency-audit
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -37,6 +38,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+    needs: dependency-install
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -51,6 +53,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+    needs: dependency-install
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
