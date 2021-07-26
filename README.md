@@ -240,6 +240,12 @@ See [Developer log](./developer-log.md.md)
 
 ## Miscellaneous
 
+### OpenAPI Specification
+
+The specification for the API is available in [`specification.yml`](./specification.yml).
+
+This can be viewed using a tool like [Swagger Editor](https://editor.swagger.io/).
+
 ### Tools
 
 The [`tools`](./tools) section contains a rough scraping script I used to find all of the cities.
