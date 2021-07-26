@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "docker:build": "sh scripts/docker-build.sh",
+    "docker:run": "sh scripts/docker-run.sh",
+    "docker:start": "npm run docker:build && npm run docker:run",
     "start": "node src/index.js",
+    "test": "npm run test:lint && npm run test:unit",
     "test:lint": "standard",
     "test:postman": "sh scripts/newman-test.sh",
     "test:unit": "nyc mocha --require test/unit/config/mocha.requires.js --recursive test/unit"

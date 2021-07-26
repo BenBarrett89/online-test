@@ -30,3 +30,10 @@
 - Added validation to `/users` route (other route doesn't need validation)
 - TODO: Add Docker, add Postman functional testing, improve documentation
 - Stretch goal: serve the OpenAPI spec
+
+## 2021-07-26
+
+- Added a Dockerfile
+- Added Postman test suite
+- Added scripts for ease of building/running the Docker image and running Postman suite in Newman
+- Added more documentation

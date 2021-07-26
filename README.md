@@ -109,7 +109,7 @@ These decisions (particularly the stretch goal) impact the design and force an a
 
 ### Technical notes
 
-- The [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) appears to be suitable for calculating the distance between two points on a sphere - I will investigate using this for determining the distance between two points (the city and any given user).
+- The [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) is used to find the distance between two points - city (or provided) coordinates (latitude and longitude) and user coordinates.
 
 ### Technology selection
 
@@ -130,7 +130,109 @@ The technologies I intend to use will be:
 
 ## Running the API
 
-Information on running the API will be placed here.
+There are two ways to run the API - in Node.js or in Docker.
+
+### Running the API in Node.js
+
+#### Node.js Prerequisites
+
+- `node` - Node.js CLI
+- `npm` - Node Package Manager
+
+#### Install dependencies
+
+Install the dependencies listed in the `package.json` / `package-lock.json`:
+
+```terminal
+npm ci
+```
+
+#### Run the API (Node.js)
+
+Run the application using the `start` script:
+
+```terminal
+npm start
+```
+
+or
+
+```terminal
+npm run start
+```
+
+#### Call the API (Node.js)
+
+The API can now be called on [localhost:3000](localhost:3000)
+
+### Running the API in Docker
+
+#### Docker Prerequisites
+
+- `docker` - Docker CLI
+
+#### Run the API (Docker)
+
+Run the build script from the `scripts` directory:
+
+```terminal
+sh scripts/build-docker.sh
+```
+
+Once the image has been built, it can be ran with the run script:
+
+```terminal
+sh scripts/run-docker.sh
+```
+
+or alternatively, if you have `npm` installed you can use the `docker:start` script that orchestrates both of these:
+
+```terminal
+npm run docker:start
+```
+
+#### Call the API (Docker)
+
+The API can now be called on [localhost:3000](localhost:3000)
+
+## Testing
+
+### Testing Prerequisites
+
+- `node` and `npm` - linting, unit testing
+- `docker` or Postman - integration/functional testing
+
+### Linting
+
+Linting uses [Standard](https://standardjs.com/) and can be ran using:
+
+```terminal
+npm run test:lint
+```
+
+### Unit Testing
+
+Unit tests can be ran using:
+
+```terminal
+npm run test:unit
+```
+
+This will print the NYC coverage report.
+
+### Integration/Functional Testing
+
+Run the API as described in the section above.
+
+In a separate terminal window, run:
+
+```terminal
+npm run test:postman
+```
+
+This runs the Postman collection in Docker using Newman.
+
+The Postman collection can also be imported into Postman for the suit to be ran manually.
 
 ## Developer log
 
