@@ -1,0 +1,66 @@
+{
+  "name": "online-test",
+  "version": "0.0.1",
+  "description": "Code for an online test",
+  "main": "src/index.js",
+  "scripts": {
+    "docker:build": "sh scripts/docker-build.sh",
+    "docker:run": "sh scripts/docker-run.sh",
+    "docker:start": "npm run docker:build && npm run docker:run",
+    "start": "node src/index.js",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "standard",
+    "test:postman": "sh scripts/newman-test.sh",
+    "test:unit": "nyc mocha --require test/unit/config/mocha.requires.js --recursive test/unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenBarrett89/online-test.git"
+  },
+  "author": "BenBarrett89",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenBarrett89/online-test/issues"
+  },
+  "homepage": "https://github.com/BenBarrett89/online-test#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.2",
+    "nyc": "^15.1.0",
+    "sinon": "^11.1.1",
+    "standard": "^16.0.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bunyan": "^1.8.15",
+    "express": "^4.17.1"
+  },
+  "nyc": {
+    "all": true,
+    "exclude": [
+      "src/index.js"
+    ],
+    "include": [
+      "src/**/*"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "reporter": [
+      "text",
+      "text-summary"
+    ],
+    "cache": false
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "globals": [
+      "assert",
+      "chai",
+      "expect",
+      "sinon"
+    ]
+  }
+}

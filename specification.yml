@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: Online Test API
+  description: An API that provides users within given distances of cities or locations
+  contact: 
+    name: Ben Barrett
+    url: https://github.com/BenBarrett89
+  version: 0.0.1
+paths:
+  /cities:
+    get:
+      summary: Retrieves cities and their coordinates
+      description: Returns a list of known cities and their coordinates
+      tags:
+        - Cities
+      responses:
+        '200':
+          $ref: '#/components/responses/CitiesResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /users:
+    get:
+      summary: Retrieves users meeting some criteria
+      description: Returns a list of users
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/City'
+        - $ref: '#/components/parameters/Latitude'
+        - $ref: '#/components/parameters/Longitude'
+        - $ref: '#/components/parameters/Radius'
+      responses:
+        '200':
+          $ref: '#/components/responses/UsersResponse'
+        '400':
+          $ref: '#/components/responses/ValidationErrors'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  parameters:
+    City:
+      name: city
+      in: query
+      description: The name of a city to return the users for
+      required: false
+      schema:
+        type: string
+      examples:
+        London:
+          summary: London as an example city
+          value: London
+    Latitude:
+      name: latitude
+      in: query
+      description: The latitude from which to find users. Must be provided if `longitude` is provided. Cannot be provided if `radius` is provided.
+      required: false
+      schema:
+        type: number
+      examples:
+        LondonCoordinates:
+          summary: London's coordinates; latitude
+          value: 51.507351
+    Longitude:
+      name: longitude
+      in: query
+      description: The longitude from which to find users. Must be provided if `latitude` is provided. Cannot be provided if `radius` is provided.
+      required: false
+      schema:
+        type: number
+      examples:
+        LondonCoordinates:
+          summary: London's coordinates; longitude
+          value: -0.127758
+    Radius:
+      name: radius
+      in: query
+      description: The radius in miles from the city or latitude and longitude pair to find users within. Cannot be provided if `latitude` and `longitude` are provided.
+      required: false
+      schema:
+        type: number
+      examples:
+        FiftyMiles:
+          summary: 50 miles from the provided city or coordinate
+          value: 50
+  schemas:
+    City:
+      type: object
+      description: A city
+      required:
+        - name
+        - latitude
+        - longitude
+      properties:
+        name:
+          type: string
+          description: The name of the city
+          example: London
+        latitude:
+          type: number
+          description: The latitude for the city
+          example: 51.507351
+        longitude:
+          type: number
+          description: The longitude for the city
+          example: -0.127758
+    Errors:
+      type: array
+      description: An array of errors
+      items:
+        $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      description: An error
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          description: The title of the error
+          example: Internal Server Error
+        description:
+          type: string
+          description: A description of the error
+          example: An unexpected error has occurred
+    User:
+      type: object
+      description: A user
+      required:
+        - id
+        - first_name
+        - last_name
+        - email
+        - ip_address
+        - latitude
+        - longitude
+      properties:
+        id:
+          type: integer
+          description: The ID for the user
+          example: 9001
+        first_name:
+          type: string
+          description: The user's first name
+          example: Ben
+        last_name:
+          type: string
+          description: The user's last name
+          example: Barrett
+        email:
+          type: string
+          description: The user's email address
+          example: ben.barrett@someemail.com
+        ip_address:
+          type: string
+          description: The user's IP address
+          example: 193.225.251.27
+        latitude:
+          type: number
+          description: The user's latitude
+          example: 51.507351
+        longitude:
+          type: number
+          description: The user's longitude
+          example: -0.127758
+  responses:
+    CitiesResponse:
+      description: A list of known cities
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/City'
+    InternalServerError:
+      description: A notice that there has been an internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UsersResponse:
+      description: A list of users
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    ValidationErrors:
+      description: A list of validation errors
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                $ref: '#/components/schemas/Errors'
+          examples:
+            CityNotRecognised:
+              summary: City not recognised
+              value: {errors:[{"title": "City not recognised", "description" : "The provided city was not recognised, please use the /cities route to discover recognised cities or provide latitude and longitude"}]}
+            InvalidQueryCombination:
+              summary: Invalid query combination
+              value: {errors:[{"title": "Invalid query combination", "description" : "Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory)."}]}
+            LatitudeOutOfBounds:
+              summary: Latitude out of bounds
+              value: {errors:[{"title": "Query parameter out of bounds", "description" : "Query parameter 'latitude' with value of 5177 was not within the expected bounds (between -90 and 90)"}]}
+            LongitudeOutOfBounds:
+              summary: Longitude out of bounds
+              value: {errors:[{"title": "Query parameter out of bounds", "description" : "Query parameter 'longitude' with value of -999 was not within the expected bounds (between -180 and 180)"}]}
+            MissingMandatoryParameters:
+              summary: Missing mandatory parameters (radius)
+              value: {errors:[{"title": "Missing mandatory query string parameters", "description" : "The following parameters are mandatory on this route but are missing: radius"}]}
+            RadiusOutOfBounds:
+              summary: Radius out of bounds
+              value: {errors:[{"title": "Query parameter out of bounds", "description" : "Query parameter 'radius' with value of 13000 was not within the expected bounds (between 0 and 12450.5)"}]}
+
