@@ -1,0 +1,1414 @@
+{
+	"info": {
+		"_postman_id": "3a1988e6-6599-430b-a809-401ec7fc80d6",
+		"name": "Online Test",
+		"description": "This Postman test suite contains requests and test conditions for testing the API created for this online test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/cities",
+			"item": [
+				{
+					"name": "200 OK",
+					"item": [
+						{
+							"name": "Get recognised cities",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// RESPONSE TESTS",
+											"",
+											"pm.test(\"Status Code is 200\", () => {",
+											"    pm.response.to.have.status(200)",
+											"})",
+											"",
+											"pm.test(\"Response body is JSON\", () => {",
+											"    pm.response.to.have.jsonBody()",
+											"",
+											"})",
+											"",
+											"// BODY TESTS",
+											"",
+											"const body = pm.response.json()",
+											"",
+											"pm.test(\"Body contains an array of city objects\", () => {",
+											"    pm.expect(body).to.be.an('array')",
+											"    body.forEach(item => {",
+											"        pm.expect(item).to.have.property('name')",
+											"        pm.expect(item).to.have.property('latitude')",
+											"        pm.expect(item).to.have.property('longitude')",
+											"    })",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/cities",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"cities"
+									]
+								},
+								"description": "This request retrieves the cities that the application recognises. These city names can be provided as the 'city' query string parameter for the /users route."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "/users",
+			"item": [
+				{
+					"name": "200 OK",
+					"item": [
+						{
+							"name": "Get users 50 miles from and associated with London",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// RESPONSE TESTS",
+											"",
+											"pm.test(\"Status Code is 200\", () => {",
+											"    pm.response.to.have.status(200)",
+											"})",
+											"",
+											"pm.test(\"Response body is JSON\", () => {",
+											"    pm.response.to.have.jsonBody()",
+											"",
+											"})",
+											"",
+											"// BODY TESTS",
+											"",
+											"const body = pm.response.json()",
+											"",
+											"pm.test(\"Body contains an array of user objects\", () => {",
+											"    pm.expect(body).to.be.an('array')",
+											"    body.forEach(item => {",
+											"        pm.expect(item).to.have.property('id')",
+											"        pm.expect(item).to.have.property('first_name')",
+											"        pm.expect(item).to.have.property('last_name')",
+											"        pm.expect(item).to.have.property('email')",
+											"        pm.expect(item).to.have.property('ip_address')",
+											"        pm.expect(item).to.have.property('latitude')",
+											"        pm.expect(item).to.have.property('longitude')",
+											"    })",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/users?radius=50&city=London",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "latitude",
+											"value": "51.507351",
+											"description": "The latitude of where to retrieve users from",
+											"disabled": true
+										},
+										{
+											"key": "longitude",
+											"value": "-0.127758",
+											"description": "The longitude of where to retrieve users from",
+											"disabled": true
+										},
+										{
+											"key": "radius",
+											"value": "50",
+											"description": "The radius in which users should be retrieved from"
+										},
+										{
+											"key": "city",
+											"value": "London",
+											"description": "The city of where to retrieve users from"
+										}
+									]
+								},
+								"description": "This request retrieves users that are associated with the given city (in this London) and also retrieves any users whose latitude and longitude are 50 miles from the given city based on the coordinates stored for it."
+							},
+							"response": []
+						},
+						{
+							"name": "Get users 50 miles from London by latitude and longitude",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// RESPONSE TESTS",
+											"",
+											"pm.test(\"Status Code is 200\", () => {",
+											"    pm.response.to.have.status(200)",
+											"})",
+											"",
+											"pm.test(\"Response body is JSON\", () => {",
+											"    pm.response.to.have.jsonBody()",
+											"",
+											"})",
+											"",
+											"// BODY TESTS",
+											"",
+											"const body = pm.response.json()",
+											"",
+											"pm.test(\"Body contains an array of user objects\", () => {",
+											"    pm.expect(body).to.be.an('array')",
+											"    body.forEach(item => {",
+											"        pm.expect(item).to.have.property('id')",
+											"        pm.expect(item).to.have.property('first_name')",
+											"        pm.expect(item).to.have.property('last_name')",
+											"        pm.expect(item).to.have.property('email')",
+											"        pm.expect(item).to.have.property('ip_address')",
+											"        pm.expect(item).to.have.property('latitude')",
+											"        pm.expect(item).to.have.property('longitude')",
+											"    })",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/users?latitude=51.507351&longitude=-0.127758&radius=50",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "latitude",
+											"value": "51.507351",
+											"description": "The latitude of where to retrieve users from"
+										},
+										{
+											"key": "longitude",
+											"value": "-0.127758",
+											"description": "The longitude of where to retrieve users from"
+										},
+										{
+											"key": "radius",
+											"value": "50",
+											"description": "The radius in which users should be retrieved from"
+										},
+										{
+											"key": "city",
+											"value": "London",
+											"description": "The city of where to retrieve users from",
+											"disabled": true
+										}
+									]
+								},
+								"description": "This request retrieves users whose latitude and longitude are 50 miles from the provided latitude and longitude (in this case, those of London)"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "400 Bad Request",
+					"item": [
+						{
+							"name": "Missing mandatory parameters",
+							"item": [
+								{
+									"name": "Missing radius",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Missing mandatory query string parameters\",",
+													"    description: \"The following parameters are mandatory on this route but are missing: radius\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?city=London",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from",
+													"disabled": true
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from"
+												}
+											]
+										},
+										"description": "This request returns a bad request error because radius is mandatory in determining what users are within a given radius of a point."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid query combination",
+							"item": [
+								{
+									"name": "Both city and latitude and longitude provided",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Invalid query combination\",",
+													"    description: \"Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory).\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=51.507351&longitude=-0.127758&radius=50&city=London",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from"
+												}
+											]
+										},
+										"description": "This request returns a bad request error because latitude, longitude and city are all provided, so the API cannot determine which of the points to use as the centre."
+									},
+									"response": []
+								},
+								{
+									"name": "No centre provided",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Invalid query combination\",",
+													"    description: \"Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory).\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because neither latitude and longitude or city are provided, so the API cannot determine a centre to use."
+									},
+									"response": []
+								},
+								{
+									"name": "Longitude without latitude",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Invalid query combination\",",
+													"    description: \"Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory).\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?longitude=-0.127758&radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because longitude is provided but latitude is not, so the API cannot determine a centre to use."
+									},
+									"response": []
+								},
+								{
+									"name": "Latitude without longitude",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Invalid query combination\",",
+													"    description: \"Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory).\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=51.507351&radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because latitude is provided but longitude is not, so the API cannot determine a centre to use."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Out of bounds",
+							"item": [
+								{
+									"name": "Latitude below lower bound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Query parameter out of bounds\",",
+													"    description: \"Query parameter 'latitude' with value of -99 was not within the expected bounds (between -90 and 90)\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=-99&longitude=-0.127758&radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "-99",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because latitude is below its lower bound so cannot be used."
+									},
+									"response": []
+								},
+								{
+									"name": "Latitude above upper bound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Query parameter out of bounds\",",
+													"    description: \"Query parameter 'latitude' with value of 91 was not within the expected bounds (between -90 and 90)\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=91&longitude=-0.127758&radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "91",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because latitude is above its upper bound so cannot be used."
+									},
+									"response": []
+								},
+								{
+									"name": "Longitude below lower bound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Query parameter out of bounds\",",
+													"    description: \"Query parameter 'longitude' with value of -181 was not within the expected bounds (between -180 and 180)\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=51.507351&longitude=-181&radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-181",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because lonfgitude is below its lower bound so cannot be used."
+									},
+									"response": []
+								},
+								{
+									"name": "Longitude above upper bound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Query parameter out of bounds\",",
+													"    description: \"Query parameter 'longitude' with value of 181 was not within the expected bounds (between -180 and 180)\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=51.507351&longitude=181&radius=50",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "181",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because longitude is above its upper bound so cannot be used."
+									},
+									"response": []
+								},
+								{
+									"name": "Radius below lower bound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Query parameter out of bounds\",",
+													"    description: \"Query parameter 'radius' with value of 13000 was not within the expected bounds (between 0 and 12450.5)\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=51.507351&longitude=-0.127758&radius=13000",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "13000",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because radius is above its upper bound so cannot be used (radius above half the circumference of the Earth, which would encompass every user, doesn't make sense)."
+									},
+									"response": []
+								},
+								{
+									"name": "Radius above upper bound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"Query parameter out of bounds\",",
+													"    description: \"Query parameter 'radius' with value of -10 was not within the expected bounds (between 0 and 12450.5)\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=51.507351&longitude=-0.127758&radius=-10",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "-10",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "London",
+													"description": "The city of where to retrieve users from",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This request returns a bad request error because radius is below its lower bound so cannot be used (negative radius doesn't make sense)."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Unrecognised city",
+							"item": [
+								{
+									"name": "City not recognised",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedError = {",
+													"    title: \"City not recognised\",",
+													"    description: \"The provided city was not recognised, please use the /cities route to discover recognised cities or provide latitude and longitude\"",
+													"}",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const error = body.errors[0]",
+													"    pm.expect(error).to.have.property('title')",
+													"    pm.expect(error).to.have.property('description')",
+													"    pm.expect(error).to.eql(expectedError)",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?radius=50&city=R'lyeh",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.507351",
+													"description": "The latitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "longitude",
+													"value": "-0.127758",
+													"description": "The longitude of where to retrieve users from",
+													"disabled": true
+												},
+												{
+													"key": "radius",
+													"value": "50",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "R'lyeh",
+													"description": "The city of where to retrieve users from"
+												}
+											]
+										},
+										"description": "This request returns a bad request error because the provided city is not known, so the API cannot determine a user's distance from it (it needs to know the city's latitude and longitude to make a comparison)."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Multiple errors",
+							"item": [
+								{
+									"name": "Multiple errors reported on at once",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// RESPONSE TESTS",
+													"",
+													"pm.test(\"Status Code is 400\", () => {",
+													"    pm.response.to.have.status(400)",
+													"})",
+													"",
+													"pm.test(\"Response body is JSON\", () => {",
+													"    pm.response.to.have.jsonBody()",
+													"",
+													"})",
+													"",
+													"// BODY TESTS",
+													"",
+													"const body = pm.response.json()",
+													"",
+													"const expectedErrors = [",
+													"        {",
+													"            \"title\": \"Invalid query combination\",",
+													"            \"description\": \"Please ensure you provide a valid combination of query parameters; provide either city or latitude and longitude together (in addition to radius, which is mandatory).\"",
+													"        },",
+													"        {",
+													"            \"title\": \"Query parameter out of bounds\",",
+													"            \"description\": \"Query parameter 'latitude' with value of 999 was not within the expected bounds (between -90 and 90)\"",
+													"        },",
+													"        {",
+													"            \"title\": \"Query parameter out of bounds\",",
+													"            \"description\": \"Query parameter 'longitude' with value of -999 was not within the expected bounds (between -180 and 180)\"",
+													"        },",
+													"        {",
+													"            \"title\": \"Query parameter out of bounds\",",
+													"            \"description\": \"Query parameter 'radius' with value of -1 was not within the expected bounds (between 0 and 12450.5)\"",
+													"        },",
+													"        {",
+													"            \"title\": \"City not recognised\",",
+													"            \"description\": \"The provided city was not recognised, please use the /cities route to discover recognised cities or provide latitude and longitude\"",
+													"        }",
+													"    ]",
+													"",
+													"pm.test(\"Body contains an array of error objects\", () => {",
+													"    pm.expect(body).to.have.property('errors')",
+													"    const errors = body.errors",
+													"    errors.forEach((error, index) => {",
+													"        pm.expect(error).to.eql(expectedErrors[index])",
+													"    })",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}:{{port}}/users?latitude=999&longitude=-999&radius=-1&city=Atlantis",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "999",
+													"description": "The latitude of where to retrieve users from"
+												},
+												{
+													"key": "longitude",
+													"value": "-999",
+													"description": "The longitude of where to retrieve users from"
+												},
+												{
+													"key": "radius",
+													"value": "-1",
+													"description": "The radius in which users should be retrieved from"
+												},
+												{
+													"key": "city",
+													"value": "Atlantis",
+													"description": "The city of where to retrieve users from"
+												}
+											]
+										},
+										"description": "This request retrieves users whose latitude and longitude are 50 miles from the provided latitude and longitude (in this case, those of London)"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "404 Not Found",
+			"item": [
+				{
+					"name": "Not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// RESPONSE TESTS",
+									"",
+									"pm.test(\"Status Code is 404\", () => {",
+									"    pm.response.to.have.status(404)",
+									"})",
+									"",
+									"pm.test(\"Response body is JSON\", () => {",
+									"    pm.response.to.have.jsonBody()",
+									"",
+									"})",
+									"",
+									"// BODY TESTS",
+									"",
+									"const body = pm.response.json()",
+									"const expectedTitle = 'Route not found'",
+									"const expectedDescription = 'The route you have called was not found'",
+									"const expectedError = {",
+									"    title: expectedTitle,",
+									"    description: expectedDescription",
+									"}",
+									"",
+									"pm.test(\"Body contains the route not found error\", () => {",
+									"    pm.expect(body).to.eql(expectedError)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/unknown-route-that-does-not-exist",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"unknown-route-that-does-not-exist"
+							]
+						},
+						"description": "This request is to a route that doesn't exist and returns a 404 response."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost",
+			"disabled": true
+		},
+		{
+			"key": "port",
+			"value": "3000",
+			"disabled": true
+		}
+	]
+}

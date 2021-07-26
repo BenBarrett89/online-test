@@ -4,8 +4,10 @@
   "description": "Code for an online test",
   "main": "src/index.js",
   "scripts": {
+    "docker:build": "sh scripts/docker-build.sh",
     "start": "node src/index.js",
     "test:lint": "standard",
+    "test:postman": "sh scripts/newman-test.sh",
     "test:unit": "nyc mocha --require test/unit/config/mocha.requires.js --recursive test/unit"
   },
   "repository": {
