@@ -37,3 +37,9 @@
 - Added Postman test suite
 - Added scripts for ease of building/running the Docker image and running Postman suite in Newman
 - Added more documentation
+- Added GitHub Actions workflow
+- Added serving of the OpenAPI specification through the application
+
+## 2021-07-27
+
+- Improved documentation
