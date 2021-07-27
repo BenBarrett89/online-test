@@ -249,7 +249,7 @@ It can be found here.
 
 ## Developer log
 
-See [Developer log](./developer-log.md.md)
+See [Developer log](./developer-log.md)
 
 ## Submission
 
