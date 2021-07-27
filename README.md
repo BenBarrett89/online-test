@@ -111,7 +111,7 @@ These decisions (particularly the stretch goal) impact the design and force an a
 
 ### Technical notes
 
-- The [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) is used to find the distance between two points - city (or provided) coordinates (latitude and longitude) and user coordinates.∑
+- The [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) is used to find the distance between two points - city (or provided) coordinates (latitude and longitude) and user coordinates.
 
 ### Technology selection
 
