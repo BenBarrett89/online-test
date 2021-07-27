@@ -181,13 +181,13 @@ The specification is available through the browser at [localhost:3000/api-docs/]
 Run the build script from the `scripts` directory:
 
 ```terminal
-sh scripts/build-docker.sh
+sh scripts/docker-build.sh
 ```
 
 Once the image has been built, it can be ran with the run script:
 
 ```terminal
-sh scripts/run-docker.sh
+sh scripts/docker-run.sh
 ```
 
 or alternatively, if you have `npm` installed you can use the `docker:start` script that orchestrates both of these:
@@ -249,7 +249,7 @@ It can be found here.
 
 ## Developer log
 
-See [Developer log](./developer-log.md.md)
+See [Developer log](./developer-log.md)
 
 ## Submission
 
