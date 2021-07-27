@@ -1,5 +1,7 @@
 # Online Test
 
+![Workflow](https://github.com/BenBarrett89/online-test/actions/workflows/node.js.yml/badge.svg)
+
 > Code for an online test
 
 ## Overview
@@ -109,7 +111,7 @@ These decisions (particularly the stretch goal) impact the design and force an a
 
 ### Technical notes
 
-- The [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) is used to find the distance between two points - city (or provided) coordinates (latitude and longitude) and user coordinates.
+- The [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) is used to find the distance between two points - city (or provided) coordinates (latitude and longitude) and user coordinates.∑
 
 ### Technology selection
 
@@ -239,9 +241,31 @@ This runs the Postman collection in Docker using Newman.
 
 The Postman collection can also be imported into Postman for the suit to be ran manually.
 
+### Continuous Integration
+
+A GitHub Actions workflow has been set up for continuous integration.
+
+It can be found here.
+
 ## Developer log
 
 See [Developer log](./developer-log.md.md)
+
+## Submission
+
+To answer the task:
+
+> Build an API which calls this API, and returns people who are listed as either living in London, or whose current coordinates are within 50 miles of London.
+
+Run
+
+```terminal
+npm install && npm run start
+```
+
+And then call the API with the following request:
+
+[http://localhost:3000/users?city=London&radius=50](http://localhost:3000/users?city=London&radius=50)
 
 ## Miscellaneous
 
@@ -250,6 +274,12 @@ See [Developer log](./developer-log.md.md)
 The specification for the API is available in [`specification.yml`](./specification.yml).
 
 This can be viewed using a tool like [Swagger Editor](https://editor.swagger.io/).
+
+### Retrospective / Further Work
+
+I would have liked to have been able to provide additional flexibility on the `city` query string parameter of the `/users` route, however the upstream API does not allow for that so additional logic would need to be added to convert the input. For example, `city=London`, `city=london`, `city=LONDON`, `city=lonDON` could all be treated equally.
+
+I would also have liked to have done some response mapping as I have noticed that some of the data from the upstream API is not in consistent formats - for example the user with `id` `520` has `latitude` and `longitude` values that are of type `string` rather than `number`.
 
 ### Tools
 
